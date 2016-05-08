@@ -1,0 +1,7 @@
+/target/
+src/main/xtend-gen
+.settings
+.classpath
+.project
+/.xtendbin/
+src/main/generated-sources/xtend
