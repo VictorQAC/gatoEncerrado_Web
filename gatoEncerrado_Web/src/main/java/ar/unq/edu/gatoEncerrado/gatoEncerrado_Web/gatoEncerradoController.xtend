@@ -8,19 +8,8 @@ import java.util.List
 import javax.swing.ImageIcon
 import ar.edu.unq.ciu.dominio_gatoEncerrado1.GatoEncerradoModel
 import org.uqbar.xtrest.api.annotation.Controller
-
-class pedidoLaberinto{
-	@Accessors
-	List<String> descripcion
-//	@Accessors
-//	List<Integer> idLaberintos
-//	@Accessors
-//	List<ImageIcon> rutaImagenLaberintos
-	
-	new(List<String> desc){
-		descripcion = desc
-	}
-}
+import ar.edu.unq.ciu.dominio_gatoEncerrado1.Laberinto
+import java.util.ArrayList
 
 @Controller
 class gatoEncerradoController {
@@ -30,9 +19,9 @@ class gatoEncerradoController {
 	
 	@Get("/laberintos")
 	def laberintosGet(String idUsuario) {
-		val pedido = new pedidoLaberinto(sistema.descripcionLaberinto)
+		val respuesta = new Servicio(sistema.listaLaberintos)
 		
-		ok(((pedido.descripcion).toString).toJson)
+		ok((respuesta.listaDeLaberintosMinimizados).toJson)
 	}
 	
 	
