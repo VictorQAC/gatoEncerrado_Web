@@ -39,6 +39,8 @@ class gatoEncerradoController {
 		val idIntAccion = Integer.parseInt(idAccion)
 		var respuesta = new Servicio()
 		
+		//
+		
 		ok((respuesta.realizarAccionDeLaHabitacion(sistema.laberintoPorId(sistema.laberintoActual),idIntHab,idIntAccion)).toJson)
 	}
 	
