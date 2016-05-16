@@ -3,17 +3,13 @@ package ar.unq.edu.gatoEncerrado.gatoEncerrado_Web
 import org.uqbar.xtrest.json.JSONUtils
 import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.api.XTRest
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.List
-import javax.swing.ImageIcon
 import ar.edu.unq.ciu.dominio_gatoEncerrado1.GatoEncerradoModel
 import org.uqbar.xtrest.api.annotation.Controller
-import ar.edu.unq.ciu.dominio_gatoEncerrado1.Laberinto
-import java.util.ArrayList
 
 @Controller
 class gatoEncerradoController {
 	val GatoEncerradoModel sistema = new GatoEncerradoModel()
+	//val SistemaWebAppModel sistemaWeb = new SistemaWebAppModel(sistema)
 	extension JSONUtils = new JSONUtils
 	
 	
@@ -21,7 +17,7 @@ class gatoEncerradoController {
 	def laberintosGet(String idUsuario) {
 		val respuesta = new Servicio(sistema.listaLaberintos)
 		
-		ok((respuesta.listaDeLaberintosMinimizados).toJson)
+		ok((respuesta.listaDeLaberintosMinimizados()).toJson)
 	}
 	
 	@Get("/iniciarLaberinto")
@@ -29,6 +25,8 @@ class gatoEncerradoController {
 		val idIntegerLab = Integer.parseInt(idLaberinto)
 		var respuesta = new Servicio()
 		var res =  respuesta.iniciarLaberinto(sistema.laberintoPorId(idIntegerLab))
+		
+		sistema.laberintoActual = idIntegerLab
 		
 		ok((res).toJson)
 	}
@@ -38,8 +36,6 @@ class gatoEncerradoController {
 		val idIntHab = Integer.parseInt(idHabitacion)
 		val idIntAccion = Integer.parseInt(idAccion)
 		var respuesta = new Servicio()
-		
-		//
 		
 		ok((respuesta.realizarAccionDeLaHabitacion(sistema.laberintoPorId(sistema.laberintoActual),idIntHab,idIntAccion)).toJson)
 	}
