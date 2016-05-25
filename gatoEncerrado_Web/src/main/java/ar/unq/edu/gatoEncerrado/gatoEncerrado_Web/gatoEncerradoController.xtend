@@ -9,7 +9,6 @@ import org.uqbar.xtrest.api.annotation.Controller
 @Controller
 class gatoEncerradoController {
 	val GatoEncerradoModel sistema = new GatoEncerradoModel()
-	//val SistemaWebAppModel sistemaWeb = new SistemaWebAppModel(sistema)
 	extension JSONUtils = new JSONUtils
 	
 	
