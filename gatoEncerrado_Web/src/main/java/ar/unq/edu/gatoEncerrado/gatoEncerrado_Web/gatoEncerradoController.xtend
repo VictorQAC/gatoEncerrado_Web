@@ -22,21 +22,23 @@ class gatoEncerradoController {
 	@Get("/iniciarLaberinto")
 	def iniciarLab(String idLaberinto, String idUsuario){
 		val idIntegerLab = Integer.parseInt(idLaberinto)
-		var respuesta = new Servicio()
-		var res =  respuesta.iniciarLaberinto(sistema.laberintoPorId(idIntegerLab))
+		val idIntUsuario = Integer.parseInt(idUsuario)
 		
-		sistema.laberintoActual = idIntegerLab
+		var respuesta = new Servicio()
+		var res =  respuesta.iniciarLaberinto(sistema,idIntUsuario,idIntegerLab)
+		
 		
 		ok((res).toJson)
 	}
 	
 	@Get("/realizarAcciónHabitación")
-	def realizarAccion(String idHabitacion, String idAccion){
+	def realizarAccion(String idHabitacion, String idAccion,String idUsuario){
 		val idIntHab = Integer.parseInt(idHabitacion)
 		val idIntAccion = Integer.parseInt(idAccion)
+		val idIntUsuario = Integer.parseInt(idUsuario)
 		var respuesta = new Servicio()
 		
-		ok((respuesta.realizarAccionDeLaHabitacion(sistema.laberintoPorId(sistema.laberintoActual),idIntHab,idIntAccion)).toJson)
+		ok((respuesta.realizarAccionDeLaHabitacion(sistema,idIntHab,idIntAccion,idIntUsuario)).toJson)
 	}
 	
 	

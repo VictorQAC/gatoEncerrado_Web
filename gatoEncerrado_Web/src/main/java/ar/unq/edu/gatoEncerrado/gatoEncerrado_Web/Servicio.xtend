@@ -9,6 +9,7 @@ import ar.edu.unq.ciu.dominio_gatoEncerrado1.Jugador
 import ar.edu.unq.ciu.dominio_gatoEncerrado1.Inventario
 import ar.edu.unq.ciu.dominio_gatoEncerrado1.Accion
 import ar.edu.unq.ciu.dominio_gatoEncerrado1.Item
+import ar.edu.unq.ciu.dominio_gatoEncerrado1.GatoEncerradoModel
 
 class LaberintoMinimizado{
 	@Accessors
@@ -92,11 +93,16 @@ class Servicio{
 		return res
 	}
 	
-	def IniciarLaberinto iniciarLaberinto(Laberinto lab){
+	def IniciarLaberinto iniciarLaberinto(GatoEncerradoModel sistema, Integer idLaberinto,Integer idUsuario){
+		
+		var lab = sistema.laberintoPorId(idLaberinto)
+		var jugador = sistema.buscarJugador(idUsuario)
+		 
+		
 		var res = new IniciarLaberinto
 		res.idLaberinto = lab.id.toString
 		res.habitaciones = this.habitacionesMinizadas(lab.listaHabitaciones)
-		res.inventario = this.inventarioMinizado(lab.inventario)
+		res.inventario = this.inventarioMinizado(jugador.inventario)
 		return res
 	}
 	
@@ -137,12 +143,14 @@ class Servicio{
 	}
 	
 	
-	def RealizarAccionHabitacion realizarAccionDeLaHabitacion(Laberinto lab,Integer idHab,Integer idAccion){
-		var habActual = lab.buscarHabitacionPorId(idHab)
+	def RealizarAccionHabitacion realizarAccionDeLaHabitacion(GatoEncerradoModel sistema,Integer idHab,Integer idAccion,Integer idUsuario){
+		var habActual = sistema.laberintoActual.buscarHabitacionPorId(idHab)
 		var accion = habActual.buscarAccionPorId(idAccion)
+		var jugador = sistema.buscarJugador(idUsuario)
+		
 		
 		var RealizarAccionHabitacion res = new RealizarAccionHabitacion
-		res.laAccionQueSeRealizoFue =  accion.ejecutar(lab)
+		res.laAccionQueSeRealizoFue =  accion.ejecutar(sistema,jugador)
 		
 		return res
 	}
