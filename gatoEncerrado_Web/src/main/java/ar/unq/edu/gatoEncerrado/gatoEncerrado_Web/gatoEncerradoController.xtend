@@ -11,6 +11,17 @@ class gatoEncerradoController {
 	val GatoEncerradoModel sistema = new GatoEncerradoModel()
 	extension JSONUtils = new JSONUtils
 	
+	@Get("/log")
+	def logIn(String nombreUsuario, String contrasenia) {
+		val usuarioNombre = "matayas";
+		val usuarioContrasenia = "pass";
+		
+		if((nombreUsuario.toString == usuarioNombre) && (contrasenia.toString == usuarioContrasenia)) {
+			ok("EstaAutenticado");
+		} else {
+		 	return notFound("No existe ese usuario");
+		}	
+	}
 	
 	@Get("/laberintos")
 	def laberintosGet(String idUsuario) {

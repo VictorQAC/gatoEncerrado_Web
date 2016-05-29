@@ -1,11 +1,11 @@
 'use strict';
-angular.module('LaberintosApp', ['ngRoute'])
+var app = angular.module('LaberintosApp', ['ngRoute', 'ngResource'])
 
-.config(['$routeProvider', function($routeProvider) {
+app.config(function($routeProvider) {
 	$routeProvider
 	
 	.when('/', {
-		templateUrl : '../html/WebGatoEncerrado.html',
+		templateUrl : '../html/login.html',
 		controller : 'OtroController'
 	})
 	
@@ -16,9 +16,33 @@ angular.module('LaberintosApp', ['ngRoute'])
 	
 	.otherwise({ redirectTo: '../html/404' })
 	
+})
+
+app.factory('Libros', function($resource) {
+    return $resource('/log', {
+    	'get' : { method: 'GET', isArray: true, params:{ 'nombreUsuario': '@nombreUsuario', 'contrasenia': '@contrasenia' } }
+    });
+})
+
+
+app.controller('LoginController', [ '$scope', '$location', 'Libros', '$resource', function($scope, $location, Libros, $resource) {
+	
+	$scope.nombreUsuario = "";
+	$scope.contrasenia = "";
+
+	$scope.logIn = function() {
+		Libros.get( {nombreUsuario: $scope.nombreUsuario, contrasenia: $scope.contrasenia},
+			function(response) {
+				$location.path("/seleccionar");
+			},
+			function(err) {
+				alert(err.data);
+			}
+		)
+	}
 }])
 
-.controller('SeleccionarController', ['$scope', '$http', function ($scope, $http) {
+app.controller('SeleccionarController', ['$scope', '$http', function ($scope, $http) {
 
   $http.get("http://localhost:9000/laberintos")
   .then(
@@ -32,13 +56,13 @@ angular.module('LaberintosApp', ['ngRoute'])
 
 }])
 
-.controller('JugarController', ['$scope', function ($scope) {
+app.controller('JugarController', ['$scope', function ($scope) {
 	
 	$scope.valor = "PROBANDO";
 	
 }])
 
-.controller('OtroController', [ '$scope', function ($scope) {
+app.controller('OtroController', [ '$scope', function ($scope) {
 	
 	$scope.test = 0;
 	
