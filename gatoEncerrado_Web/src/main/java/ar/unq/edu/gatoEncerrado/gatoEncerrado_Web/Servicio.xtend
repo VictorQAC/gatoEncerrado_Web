@@ -18,7 +18,6 @@ class LaberintoMinimizado{
 	String nombreLaberinto
 	@Accessors
 	String path
-
 }
 
 class IniciarLaberinto{
@@ -28,7 +27,6 @@ class IniciarLaberinto{
 	List<HabitacionMinimizada> habitaciones
 	@Accessors
 	List<ItemDelInventarioMinimizado> inventario
-	
 }
 
 class HabitacionMinimizada{

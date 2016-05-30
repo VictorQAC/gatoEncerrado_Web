@@ -1,6 +1,7 @@
 package ar.unq.edu.gatoEncerrado.gatoEncerrado_Web
 
 import org.uqbar.xtrest.json.JSONUtils
+import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.api.XTRest
 import ar.edu.unq.ciu.dominio_gatoEncerrado1.GatoEncerradoModel
@@ -12,7 +13,7 @@ class gatoEncerradoController {
 	extension JSONUtils = new JSONUtils
 	
 	@Get("/log")
-	def logIn(String nombreUsuario, String contrasenia) {
+	def Result logIn(String nombreUsuario, String contrasenia) {
 		val usuarioNombre = "matayas";
 		val usuarioContrasenia = "pass";
 		
@@ -20,7 +21,7 @@ class gatoEncerradoController {
 			ok("EstaAutenticado");
 		} else {
 		 	return notFound("No existe ese usuario");
-		}	
+		}
 	}
 	
 	@Get("/laberintos")

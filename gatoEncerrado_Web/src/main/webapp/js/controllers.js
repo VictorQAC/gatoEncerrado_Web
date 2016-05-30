@@ -1,31 +1,5 @@
-'use strict';
-var app = angular.module('LaberintosApp', ['ngRoute', 'ngResource'])
-
-app.config(function($routeProvider) {
-	$routeProvider
-	
-	.when('/', {
-		templateUrl : '../html/login.html',
-		controller : 'OtroController'
-	})
-	
-	.when('/seleccionar', {
-		templateUrl : '../html/JugarEnLaHabitacion.html',
-		controller : 'JugarController'
-	})
-	
-	.otherwise({ redirectTo: '../html/404' })
-	
-})
-
-app.factory('Libros', function($resource) {
-    return $resource('/log', {
-    	'get' : { method: 'GET', isArray: true, params:{ 'nombreUsuario': '@nombreUsuario', 'contrasenia': '@contrasenia' } }
-    });
-})
-
-
 app.controller('LoginController', [ '$scope', '$location', 'Libros', '$resource', function($scope, $location, Libros, $resource) {
+	'use strict';
 	
 	$scope.nombreUsuario = "";
 	$scope.contrasenia = "";
