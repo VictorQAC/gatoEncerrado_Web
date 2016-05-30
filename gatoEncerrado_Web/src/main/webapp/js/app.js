@@ -5,15 +5,18 @@ app.config(function($routeProvider) {
 	
 	.when('/', {
 		templateUrl : '../html/login.html',
-		controller : 'OtroController'
+		controller : 'LoginController'
 	})
 	
 	.when('/seleccionar', {
-		templateUrl : '../html/JugarEnLaHabitacion.html',
+		templateUrl : '../html/seleccionarLaberinto.html',
+		controller : 'SeleccionarController'
+	})
+	
+	.when('/seleccionar/:id', {
+		templateUrl : '../html/jugarLaberinto.html',
 		controller : 'JugarController'
 	})
 	
-	.otherwise({ redirectTo: '../html/404' })
-	
-})
-;
+	.otherwise({ templateUrl : '../html/404.html' })
+});

@@ -18,6 +18,13 @@ class LaberintoMinimizado{
 	String nombreLaberinto
 	@Accessors
 	String path
+	@Accessors
+	String descripcion
+}
+
+class ListaLaberintos {
+	@Accessors
+	List<LaberintoMinimizado> listaLaberintos = new ArrayList
 }
 
 class IniciarLaberinto{
@@ -32,6 +39,8 @@ class IniciarLaberinto{
 class HabitacionMinimizada{
 	@Accessors
 	String idHabitacion
+	@Accessors
+	String nombreHabitacion
 	@Accessors
 	List<AccionMinimizada> listAcciones
 	@Accessors
@@ -79,19 +88,20 @@ class Servicio{
 	}
 	
 		
-	def List<LaberintoMinimizado> listaDeLaberintosMinimizados(){
-		var List<LaberintoMinimizado> res = new ArrayList
+	def ListaLaberintos listaDeLaberintosMinimizados(){
+		var ListaLaberintos res = new ListaLaberintos
 		for(Laberinto lab: listLaberinto){
 			var LaberintoMinimizado mini = new LaberintoMinimizado
 			mini.idLaberinto = lab.id.toString
 			mini.nombreLaberinto = lab.nombreLaberinto
 			mini.path = lab.rutaImagen
-			res.add(mini)
+			mini.descripcion = lab.descripcion
+			res.listaLaberintos.add(mini)
 		}
 		return res
 	}
 	
-	def IniciarLaberinto iniciarLaberinto(GatoEncerradoModel sistema, Integer idLaberinto,Integer idUsuario){
+	def IniciarLaberinto iniciarLaberinto(GatoEncerradoModel sistema, Integer idLaberinto,String idUsuario){
 		
 		var lab = sistema.laberintoPorId(idLaberinto)
 		var jugador = sistema.buscarJugador(idUsuario)
@@ -109,6 +119,7 @@ class Servicio{
 		for(Habitacion hab: habitaciones){
 			var HabitacionMinimizada mini = new HabitacionMinimizada
 			mini.idHabitacion = hab.id.toString
+			mini.nombreHabitacion = hab.nombreHabitacion
 			mini.listAcciones = this.accionesMinizadas(hab.listaAcciones)
 			mini.tipoDeHabitacion = hab.tipo
 			mini.path = hab.rutaImagen
@@ -141,7 +152,7 @@ class Servicio{
 	}
 	
 	
-	def RealizarAccionHabitacion realizarAccionDeLaHabitacion(GatoEncerradoModel sistema,Integer idHab,Integer idAccion,Integer idUsuario){
+	def RealizarAccionHabitacion realizarAccionDeLaHabitacion(GatoEncerradoModel sistema,Integer idHab,Integer idAccion,String idUsuario){
 		var habActual = sistema.laberintoActual.buscarHabitacionPorId(idHab)
 		var accion = habActual.buscarAccionPorId(idAccion)
 		var jugador = sistema.buscarJugador(idUsuario)

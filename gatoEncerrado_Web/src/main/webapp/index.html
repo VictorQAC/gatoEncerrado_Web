@@ -6,15 +6,16 @@
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
-<header>
+<header ng-controller="HeaderController">
 	<div class="text-center">
 		<span class="col-lg-1 col-md-1"> <img src="../images/Gato Encerrado.jpg"
 			width="80" height="80">
 		</span>
-		<h2 class="col-lg-11 col-md-11 text-center">Aca hay Gato Encerrado</h2>
+		<h2 class="col-lg-9 col-md-9 text-center">Aca hay Gato Encerrado</h2>
 		<!-- <span class="col-md-1"> <img src="../images/Icono Usuario.png"
 			width="40" height="40">
 		</span> -->
+		<span ng-show="usuario != ''" class="col-lg-2 col-md-2 pull-right" style="color: red; font-size: 25px;">Bienvenido, {{usuario}}</span>
 	</div>
 </header>
 

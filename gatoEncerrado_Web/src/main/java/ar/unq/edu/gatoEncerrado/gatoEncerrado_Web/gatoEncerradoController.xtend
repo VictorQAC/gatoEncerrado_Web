@@ -11,49 +11,52 @@ import org.uqbar.xtrest.api.annotation.Controller
 class gatoEncerradoController {
 	val GatoEncerradoModel sistema = new GatoEncerradoModel()
 	extension JSONUtils = new JSONUtils
-	
+
 	@Get("/log")
 	def Result logIn(String nombreUsuario, String contrasenia) {
 		val usuarioNombre = "matayas";
 		val usuarioContrasenia = "pass";
-		
-		if((nombreUsuario.toString == usuarioNombre) && (contrasenia.toString == usuarioContrasenia)) {
+
+		if ((nombreUsuario.toString == usuarioNombre) && (contrasenia.toString == usuarioContrasenia)) {
 			ok("EstaAutenticado");
 		} else {
-		 	return notFound("No existe ese usuario");
+			return notFound("No existe ese usuario");
 		}
 	}
-	
+
 	@Get("/laberintos")
 	def laberintosGet(String idUsuario) {
-		val respuesta = new Servicio(sistema.listaLaberintos)
-		
-		ok((respuesta.listaDeLaberintosMinimizados()).toJson)
+		if (idUsuario.toString == 'matayas') {
+			val respuesta = new Servicio(sistema.listaLaberintos)
+			ok((respuesta.listaDeLaberintosMinimizados()).toJson)
+		} else {
+			return notFound("Error trayendo los laberintos del usuario");
+		}
 	}
-	
-	@Get("/iniciarLaberinto")
-	def iniciarLab(String idLaberinto, String idUsuario){
-		val idIntegerLab = Integer.parseInt(idLaberinto)
-		val idIntUsuario = Integer.parseInt(idUsuario)
-		
-		var respuesta = new Servicio()
-		var res =  respuesta.iniciarLaberinto(sistema,idIntUsuario,idIntegerLab)
-		
-		
-		ok((res).toJson)
+
+	@Get("/iniciarLaberinto/:idLaberinto")
+	def iniciarLab(String idUsuario) {
+		if (idUsuario.toString == 'matayas') {
+			val idIntegerLab = Integer.parseInt(idLaberinto)
+
+			var respuesta = new Servicio()
+			var res = respuesta.iniciarLaberinto(sistema, idIntegerLab, idUsuario.toString )
+
+			ok((res).toJson)
+		} else {
+			return notFound("Error iniciando el laberinto del usuario");
+		}
 	}
-	
+
 	@Get("/realizarAcciónHabitación")
-	def realizarAccion(String idHabitacion, String idAccion,String idUsuario){
+	def realizarAccion(String idHabitacion, String idAccion, String idUsuario) {
 		val idIntHab = Integer.parseInt(idHabitacion)
 		val idIntAccion = Integer.parseInt(idAccion)
-		val idIntUsuario = Integer.parseInt(idUsuario)
 		var respuesta = new Servicio()
-		
-		ok((respuesta.realizarAccionDeLaHabitacion(sistema,idIntHab,idIntAccion,idIntUsuario)).toJson)
+
+		ok((respuesta.realizarAccionDeLaHabitacion(sistema, idIntHab, idIntAccion, idUsuario.toString)).toJson)
 	}
-	
-	
+
 	def static void main(String[] args) {
 		XTRest.start(gatoEncerradoController, 9000)
 	}

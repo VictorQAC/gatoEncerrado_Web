@@ -1,0 +1,37 @@
+<div>
+	<h2 class="col-lg-12 col-md-12 text-center">{{habitacionActual.nombreHabitacion}}</h2>
+	<div class="container col-lg-4 col-md-4">
+		<div class="panel panel-default text-center">
+			<div class="panel-heading">Acciones Disponibles</div>
+			<div class="panel-body">
+				<input type="text" placeholder="Buscar Accion"
+					ng-model="accionFiltrada">
+			</div>
+			<div class="panel-body" ng-repeat="accion in habitacionActual.listAcciones | filter: accionFiltrada">
+				<div>
+					<span class="pull-left">{{accion.nombreAccion}}</span> 
+					<input class="pull-right" type="button" class="pull-rigth" value="Ejecutar" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container col-lg-4 col-md-4">
+		<img src={{laberinto.path}} >
+	</div>
+	<div class="container col-lg-4 col-md-4">
+		<div class="panel panel-default text-center">
+			<div class="panel-heading">Inventario</div>
+			<div class="panel-body">
+				<input type="text" placeholder="Buscar Item"
+					ng-model="itemFiltrado">
+			</div>
+			<!-- <div class="panel-body" ng-repeat="item in laberinto.acciones | filter: itemFiltrado">
+				<div>
+					<span>{{accion.nombreItem}}</span> <img
+						src="../images/eliminar.png" style="cursor: pointer;"
+						ng-click="eliminarItem()">
+				</div>
+			</div> -->
+		</div>
+	</div>
+</div>
