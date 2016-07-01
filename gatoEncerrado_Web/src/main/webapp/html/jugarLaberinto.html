@@ -9,14 +9,14 @@
 			</div>
 			<div class="panel-body" ng-repeat="accion in habitacionActual.listAcciones | filter: accionFiltrada">
 				<div>
-					<span class="pull-left">{{accion.nombreAccion}}</span> 
-					<input class="pull-right" type="button" class="pull-rigth" value="Ejecutar" />
+					<span class="pull-left">{{accion.nombreAccion}}</span>
+					<input class="pull-right" type="button" class="pull-rigth" value="Ejecutar" ng-click="realizarAccion(accion.idAccion)"/>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="container col-lg-4 col-md-4">
-		<img src={{laberinto.path}} >
+		<img src={{habitacionActual.path}} width="400px" >
 	</div>
 	<div class="container col-lg-4 col-md-4">
 		<div class="panel panel-default text-center">

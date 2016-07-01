@@ -4,8 +4,8 @@ import org.uqbar.xtrest.json.JSONUtils
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.api.XTRest
-import ar.edu.unq.ciu.dominio_gatoEncerrado1.GatoEncerradoModel
 import org.uqbar.xtrest.api.annotation.Controller
+import ar.edu.unq.ciu.dominio_gatoEncerrado1.GatoEncerradoModel
 
 @Controller
 class gatoEncerradoController {
@@ -25,27 +25,19 @@ class gatoEncerradoController {
 	}
 
 	@Get("/laberintos")
-	def laberintosGet(String idUsuario) {
-		if (idUsuario.toString == 'matayas') {
+	def laberintosGet() {
 			val respuesta = new Servicio(sistema.listaLaberintos)
 			ok((respuesta.listaDeLaberintosMinimizados()).toJson)
-		} else {
-			return notFound("Error trayendo los laberintos del usuario");
-		}
 	}
 
 	@Get("/iniciarLaberinto/:idLaberinto")
 	def iniciarLab(String idUsuario) {
-		if (idUsuario.toString == 'matayas') {
 			val idIntegerLab = Integer.parseInt(idLaberinto)
 
 			var respuesta = new Servicio()
 			var res = respuesta.iniciarLaberinto(sistema, idIntegerLab, idUsuario.toString )
 
 			ok((res).toJson)
-		} else {
-			return notFound("Error iniciando el laberinto del usuario");
-		}
 	}
 
 	@Get("/realizarAcciónHabitación")
@@ -55,6 +47,35 @@ class gatoEncerradoController {
 		var respuesta = new Servicio()
 
 		ok((respuesta.realizarAccionDeLaHabitacion(sistema, idIntHab, idIntAccion, idUsuario.toString)).toJson)
+	}
+
+	/*
+	 *	METODOS REST PARA ANDROID 
+	 */
+
+	@Get("/laberintosAndroid")
+	def traerLaberintos() {
+		val respuesta = new Servicio(sistema.listaLaberintos)
+		ok((respuesta.listaLaberintosAndroid().toJson))
+	}
+	
+	@Get("/detalleLaberinto")
+	def traerLaberintoSegunNombre(String nombreLaberinto) {
+		var respuesta = new Servicio()
+		
+		ok((respuesta.detallesLaberintoAndroid(sistema, nombreLaberinto).toJson))
+	}
+	
+	@Get("/inventario")
+	def traerInventario() {
+		val respuesta = new Servicio()
+		ok((respuesta.inventarioAndroid(sistema).toJson))
+	}
+	
+	@Get("/eliminarItem")
+	def eliminarItemInventario(String nombreItem) {
+		val respuesta = new Servicio
+		ok((respuesta.eliminarItemDelInventario(sistema, nombreItem).toJson))
 	}
 
 	def static void main(String[] args) {
