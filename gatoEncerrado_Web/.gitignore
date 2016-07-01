@@ -5,3 +5,4 @@ src/main/xtend-gen
 .project
 /.xtendbin/
 src/main/generated-sources/xtend
+src/main/webapp/node_modules
